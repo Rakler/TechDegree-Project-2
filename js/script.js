@@ -20,7 +20,8 @@ const studentList = document.querySelectorAll('li.student-item');
 var page = 1;
 const numberPerPage = 10;
 const mainDiv = document.querySelector('.page');
-
+var numberOfPages = Math.ceil(studentList.length / numberPerPage);
+console.log(numberOfPages);
 
 //for testing purposes
 //console.log(list);
@@ -62,9 +63,8 @@ const appendPageLinks = (list) =>{
 	const paginationDiv = document.createElement('div');
 	paginationDiv.className = 'pagination';
 	
-	let pageCount = list.length / numberPerPage;
 	
-	for(let i = 1; i < pageCount; i++){
+	for(let i = 1; i < numberOfPages + 1; i++){
 		const li = document.createElement('li');
 		const a = document.createElement('a');
 		a.textContent = i;
@@ -77,9 +77,13 @@ const appendPageLinks = (list) =>{
 	
 }
 
-maindDiv.addEventListener(e)=>{
-	
-};
+mainDiv.addEventListener('click', (e) => {
+	if(e.target.tagName === 'A'){
+		showPage(studentList, parseInt(e.target.textContent));
+		//console.log(parseInt(e.target.textContent));
+	}
+});
+
 appendPageLinks(studentList);
 const getNumberOfPages = () =>{ Math.ceil(list.length / numberPerPage); }
 
