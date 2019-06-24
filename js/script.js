@@ -21,7 +21,8 @@ var page = 1;
 const numberPerPage = 10;
 const mainDiv = document.querySelector('.page');
 var numberOfPages = Math.ceil(studentList.length / numberPerPage);
-console.log(numberOfPages);
+const ul = document.createElement('ul');
+const paginationDiv = document.createElement('div');
 
 //for testing purposes
 //console.log(list);
@@ -59,8 +60,7 @@ showPage(studentList, page);
    functionality to the pagination buttons.
 ***/
 const appendPageLinks = (list) =>{
-	const ul = document.createElement('ul');
-	const paginationDiv = document.createElement('div');
+	
 	paginationDiv.className = 'pagination';
 	
 	
@@ -73,12 +73,18 @@ const appendPageLinks = (list) =>{
 		
 	}
 	paginationDiv.appendChild(ul);
+	ul.childNodes[0].childNodes[0].className = 'active';
 	mainDiv.appendChild(paginationDiv);
 	
 }
 
 mainDiv.addEventListener('click', (e) => {
+	const tags = document.getElementsByTagName('a');
 	if(e.target.tagName === 'A'){
+		for(let i = 0; i < numberOfPages; i++){
+			tags[i].className = '';
+		}
+		e.target.className = 'active';
 		showPage(studentList, parseInt(e.target.textContent));
 		//console.log(parseInt(e.target.textContent));
 	}
