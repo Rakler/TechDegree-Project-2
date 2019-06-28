@@ -48,6 +48,10 @@ showPage(studentList, page);
    It first create the div itself, then loops through the number of pages and for each page, it generates a ul with anchor tags nested inside of li for each page.
 ***/
 const appendPageLinks = (list) =>{
+  var checkDiv = mainDiv.querySelector('.pagination');
+  if(checkDiv){
+    checkDiv.parentNode.removeChild(checkDiv);
+  }
   const paginationDiv = document.createElement('div');
 	paginationDiv.className = 'pagination';
   const ul = document.createElement('ul');
@@ -105,16 +109,37 @@ headDiv.appendChild(studentSearchDiv);
   filter the student list.
 ***/
 headDiv.addEventListener('keyup',(e)=>{
-  if(e.target.tagName === 'BUTTON'){
-    const input = document.getElementsByTagName('input')[0];
-    var filteredList;
+  if(e.target.tagName === 'INPUT'){
+    console.log(e.target.value);
+    var filteredList = [];
+    let inputValue = e.target.value.toLowerCase();
+
     for(let i = 0; i < studentList.length; i++){
-      if(input.value.includes(studentList[i].children[0].children[1].textContent)){
-        filteredList += [studentList[i]];
-        console.log(filteredList.length);
-      } else{
+      if(inputValue.includes(studentList[i].children[0].children[1].textContent.toLowerCase())){
+        filteredList.push(studentList[i]);
+        console.log('filtered list is length: ' + filteredList.length);
+        numberOfPages = Math.ceil(filteredList.length / numberPerPage);
+
+        //Select and remove the existing pagination div
+        //const paginationDiv = document.getElementsByClassName('pagination')[0];
+        //paginationDiv.parentNode.removeChild(paginationDiv);
+
+        //Function calls on the new filtered list
+        showPage(filteredList, page);
+        appendPageLinks(filteredList);
+      }else{
+        studentList[i].style.display = 'none';
       }
     }
+    //const input = document.getElementsByTagName('input')[0];
+
+    //for(let i = 0; i < studentList.length; i++){
+      //if(input.value.includes(studentList[i].children[0].children[1].textContent)){
+        //filteredList += [studentList[i]];
+        //console.log(filteredList.length);
+      //} else{
+      //}
+    //}
     }
   }
 );
