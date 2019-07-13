@@ -108,11 +108,44 @@ headDiv.appendChild(studentSearchDiv);
   EventListener that is supposed to check the input field for the value, and then
   filter the student list.
 ***/
-headDiv.addEventListener('keyup',(e)=>{
-  if(e.target.tagName === 'INPUT'){
+// headDiv.addEventListener('keyup',(e)=>{
+//   if(e.target.tagName === 'INPUT'){
+//     console.log(e.target.value);
+//     var filteredList = [];
+//     let inputValue = e.target.value.toLowerCase();
+//
+//     for(let i = 0; i < studentList.length; i++){
+//       if(inputValue.includes(studentList[i].children[0].children[1].textContent.toLowerCase())){
+//         filteredList.push(studentList[i]);
+//         console.log('filtered list is length: ' + filteredList.length);
+//         numberOfPages = Math.ceil(filteredList.length / numberPerPage);
+//
+//         //Select and remove the existing pagination div
+//         //const paginationDiv = document.getElementsByClassName('pagination')[0];
+//         //paginationDiv.parentNode.removeChild(paginationDiv);
+//
+//         //Function calls on the new filtered list
+//         showPage(filteredList, page);
+//         appendPageLinks(filteredList);
+//       }else{
+//         studentList[i].style.display = 'none';
+//       }
+//     }
+//     if(filteredList.length == 0){
+//       var noResultMessage = document.createElement('p');
+//       noResultMessage.textContent = 'No results found';
+//       mainDiv.appendChild(noResultMessage);
+//     }
+//     //const input = document.getElementsByTagName('input')[0];
+//     }
+//   }
+// );
+
+headDiv.addEventListener('click', (e)=>{
+  if(e.target.tagName == 'BUTTON'){
     console.log(e.target.value);
     var filteredList = [];
-    let inputValue = e.target.value.toLowerCase();
+    let inputValue = e.target.previousElementSibling.value;
 
     for(let i = 0; i < studentList.length; i++){
       if(inputValue.includes(studentList[i].children[0].children[1].textContent.toLowerCase())){
@@ -131,17 +164,12 @@ headDiv.addEventListener('keyup',(e)=>{
         studentList[i].style.display = 'none';
       }
     }
-    //const input = document.getElementsByTagName('input')[0];
-
-    //for(let i = 0; i < studentList.length; i++){
-      //if(input.value.includes(studentList[i].children[0].children[1].textContent)){
-        //filteredList += [studentList[i]];
-        //console.log(filteredList.length);
-      //} else{
-      //}
-    //}
+    if(filteredList.length == 0){
+      var noResultMessage = document.createElement('p');
+      noResultMessage.textContent = 'No results found';
+      mainDiv.appendChild(noResultMessage);
     }
   }
-);
+});
 
 // Remember to delete the comments that came with this file, and replace them with your own code comments.
