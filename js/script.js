@@ -141,6 +141,9 @@ headDiv.appendChild(studentSearchDiv);
 //   }
 // );
 
+/***
+  EventListener that listens for keyup and then finds the person being searched for.
+***/
 headDiv.addEventListener('click', (e)=>{
   if(e.target.tagName == 'BUTTON'){
     console.log(e.target.value);
